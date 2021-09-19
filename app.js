@@ -1,7 +1,10 @@
+const VkBot = require('node-vk-bot-api');
+const Markup = require('node-vk-bot-api/lib/markup');
 const express = require('express');
 const bodyParser = require('body-parser');
-const Markup = require('markup');
 const fs = require('fs');
+const app = express();
+
 
 function readFromFile(path){
     try {
@@ -47,19 +50,9 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     return 1;
 }
 
-const app = express();
-const VkBot = require('node-vk-bot-api');
 const bot = new VkBot({
     token: API_TOKEN,
     confirmation: CONFIRMATION_CODE,
-});
-
-bot.use(async (ctx, next) => {
-    try {
-      await next();
-    } catch (e) {
-      console.error(e);
-    }
 });
 
 const welcome_message_to_user = 'Привет, {имя}!'
@@ -75,16 +68,16 @@ bot.command('/sport', (ctx) => {
   });
   
 bot.command('/mood', (ctx) => {
-ctx.reply('How are you doing?', null, Markup
-    .keyboard([
-    [
-        Markup.button('Normally', 'primary'),
-    ],
-    [
-        Markup.button('Fine', 'positive'),
-        Markup.button('Bad', 'negative'),
-    ],
-    ]));
+    ctx.reply('How are you doing?', null, Markup
+        .keyboard([
+        [
+            Markup.button('Normally', 'primary'),
+        ],
+        [
+            Markup.button('Fine', 'positive'),
+            Markup.button('Bad', 'negative'),
+        ],
+        ]));
 });
 
 
