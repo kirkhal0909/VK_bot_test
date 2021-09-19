@@ -1,0 +1,1 @@
+const VkBot = require('node-vk-bot-api');
