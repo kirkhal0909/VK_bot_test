@@ -1,10 +1,6 @@
 const VkBot = require('node-vk-bot-api');
 const Markup = require('node-vk-bot-api/lib/markup');
-const express = require('express');
-const bodyParser = require('body-parser');
 const fs = require('fs');
-const app = express();
-
 
 function readFromFile(path){
     try {
@@ -79,12 +75,5 @@ bot.command('/mood', (ctx) => {
         ],
         ]));
 });
-
-
-app.use(bodyParser.json());
-
-app.post('/', bot.webhookCallback);
-
-app.listen(PORT);
 
 bot.startPolling();
