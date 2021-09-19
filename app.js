@@ -67,5 +67,5 @@ app.post('/', bot.webhookCallback);
 
 app.listen(PORT);
 
-bot.startPolling();
+//bot.startPolling();
 console.log("||LOGS STARTPOLLING")
