@@ -66,7 +66,7 @@ const welcome_message_to_bot = ['Начать', 'Привет бот']
 
 bot.command('/start', async (ctx) => {
     welcome_message_to_bot.forEach(message_to_bot => {
-        await ctx.reply(welcome_message_to_user, null, Markup
+        ctx.reply(welcome_message_to_user, null, Markup
             .keyboard([
                 Markup.button(message_to_bot, 'primary'),
             ])
