@@ -34,7 +34,7 @@ function isDataReaded(API_TOKEN){
 
 const API_TOKEN = readAPIToken();
 const CONFIRMATION_CODE = readConfirmationCode();
-const PORT = 80;
+const PORT = process.env.PORT || 80;
 
 if (!isDataReaded(API_TOKEN)) {
     console.log("Create file\n API_TOKEN\n and put there your VK group API token");
