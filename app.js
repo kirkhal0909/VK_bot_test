@@ -55,9 +55,9 @@ const bot = new VkBot({
     confirmation: CONFIRMATION_CODE
 });
 
-bot.on('Начать', (ctx) => {
-    console.log('||НАЧАТЬ')
-    ctx.reply('Начать');
+bot.on('english', (ctx) => {
+    console.log('||ENGLISH')
+    ctx.reply('english');
 })
 
 
