@@ -50,7 +50,10 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     return 1;
 }
 
-const bot = new VkBot(API_TOKEN);
+const bot = new VkBot({
+    token: API_TOKEN,
+    confirmation: CONFIRMATION_CODE
+});
 
 bot.on('Начать', (ctx) => {
     console.log('||НАЧАТЬ')
