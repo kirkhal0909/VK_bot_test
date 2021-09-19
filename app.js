@@ -55,10 +55,9 @@ const bot = new VkBot({
     confirmation: CONFIRMATION_CODE
 });
 
-bot.on('english', (ctx) => {
-    console.log('||ENGLISH')
-    ctx.reply('english');
-})
+bot.on((ctx) => {
+    ctx.reply('Hello, world!')
+  })
 
 
 app.use(bodyParser.json());
