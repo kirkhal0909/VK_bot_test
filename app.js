@@ -34,7 +34,7 @@ function isDataReaded(API_TOKEN){
 
 const API_TOKEN = readAPIToken();
 const CONFIRMATION_CODE = readConfirmationCode();
-const PORT = process.env.PORT || 80;
+//const PORT = process.env.PORT || 80;
 
 if (!isDataReaded(API_TOKEN)) {
     console.log("Create file\n API_TOKEN\n and put there your VK group API token");
@@ -46,19 +46,13 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     return 1;
 }
 
-const bot = new VkBot({
-    token: API_TOKEN,
-    confirmation: CONFIRMATION_CODE,
-});
-
-const welcome_message_to_user = 'Привет, {имя}!'
-//const welcome_message_to_bot = ['Начать', 'Привет бот']
+const bot = new VkBot(API_TOKEN);
 
 bot.on('Начать', (ctx) => {
-    console.log("||НАЧАТЬ")
-    ctx.reply(welcome_message_to_user);
+    console.log('||НАЧАТЬ')
+    ctx.reply('Начать');
 })
 
 
-console.log("||LOGS STARTPOLLING")
 bot.startPolling();
+console.log("||LOGS STARTPOLLING")
