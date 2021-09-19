@@ -1,5 +1,5 @@
 const VkBot = require('node-vk-bot-api');
-const Markup = require('node-vk-bot-api/lib/markup');
+//const Markup = require('node-vk-bot-api/lib/markup');
 const fs = require('fs');
 
 function readFromFile(path){
@@ -52,10 +52,13 @@ const bot = new VkBot({
 });
 
 const welcome_message_to_user = 'Привет, {имя}!'
-const welcome_message_to_bot = ['Начать', 'Привет бот']
+//const welcome_message_to_bot = ['Начать', 'Привет бот']
 
-bot.command('Начать', (ctx) => {
+bot.on('Начать', (ctx) => {
+    console.log("||НАЧАТЬ")
     ctx.reply(welcome_message_to_user);
 })
 
+
+console.log("||LOGS STARTPOLLING")
 bot.startPolling();
