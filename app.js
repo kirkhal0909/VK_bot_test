@@ -46,8 +46,6 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     return 1;
 }
 
-
-
 const app = express();
 const VkBot = require('node-vk-bot-api');
 const bot = new VkBot({
@@ -55,13 +53,32 @@ const bot = new VkBot({
     confirmation: CONFIRMATION_CODE,
 });
 
-bot.command('/start', (ctx) => {
-  ctx.reply('Hello!');
+bot.use(async (ctx, next) => {
+    try {
+      await next();
+    } catch (e) {
+      console.error(e);
+    }
 });
+
+const welcome_message_to_user = 'Привет, {имя}!'
+const welcome_message_to_bot = ['Начать', 'Привет бот']
+
+bot.command('/start', async (ctx) => {
+    welcome_message_to_bot.forEach(message_to_bot => {
+        await ctx.reply(welcome_message_to_user, null, Markup
+            .keyboard([
+                Markup.button(message_to_bot, 'primary'),
+            ])
+        );
+    });
+});
+
 
 app.use(bodyParser.json());
 
 app.post('/', bot.webhookCallback);
 
-
 app.listen(PORT);
+
+bot.startPolling();
