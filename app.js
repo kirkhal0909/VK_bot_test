@@ -54,26 +54,8 @@ const bot = new VkBot({
 const welcome_message_to_user = 'Привет, {имя}!'
 const welcome_message_to_bot = ['Начать', 'Привет бот']
 
-bot.command('/sport', (ctx) => {
-    ctx.reply('Select your sport', null, Markup
-      .keyboard([
-        'Football',
-        'Basketball',
-      ])
-      .oneTime());
-  });
-  
-bot.command('/mood', (ctx) => {
-    ctx.reply('How are you doing?', null, Markup
-        .keyboard([
-        [
-            Markup.button('Normally', 'primary'),
-        ],
-        [
-            Markup.button('Fine', 'positive'),
-            Markup.button('Bad', 'negative'),
-        ],
-        ]));
-});
+bot.command('Начать', (ctx) => {
+    ctx.reply(welcome_message_to_user);
+})
 
 bot.startPolling();
