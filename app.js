@@ -65,14 +65,26 @@ bot.use(async (ctx, next) => {
 const welcome_message_to_user = 'Привет, {имя}!'
 const welcome_message_to_bot = ['Начать', 'Привет бот']
 
-bot.command('/start', async (ctx) => {
-    welcome_message_to_bot.forEach(message_to_bot => {
-        ctx.reply(welcome_message_to_user, null, Markup
-            .keyboard([
-                Markup.button(message_to_bot, 'primary'),
-            ])
-        );
-    });
+bot.command('/sport', (ctx) => {
+    ctx.reply('Select your sport', null, Markup
+      .keyboard([
+        'Football',
+        'Basketball',
+      ])
+      .oneTime());
+  });
+  
+bot.command('/mood', (ctx) => {
+ctx.reply('How are you doing?', null, Markup
+    .keyboard([
+    [
+        Markup.button('Normally', 'primary'),
+    ],
+    [
+        Markup.button('Fine', 'positive'),
+        Markup.button('Bad', 'negative'),
+    ],
+    ]));
 });
 
 
