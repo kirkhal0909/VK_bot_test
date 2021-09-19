@@ -1,6 +1,10 @@
 const VkBot = require('node-vk-bot-api');
 //const Markup = require('node-vk-bot-api/lib/markup');
+const express = require('express');
+const bodyParser = require('body-parser');
 const fs = require('fs');
+
+const app = express();
 
 function readFromFile(path){
     try {
@@ -34,7 +38,7 @@ function isDataReaded(API_TOKEN){
 
 const API_TOKEN = readAPIToken();
 const CONFIRMATION_CODE = readConfirmationCode();
-//const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 80;
 
 if (!isDataReaded(API_TOKEN)) {
     console.log("Create file\n API_TOKEN\n and put there your VK group API token");
@@ -53,6 +57,12 @@ bot.on('Начать', (ctx) => {
     ctx.reply('Начать');
 })
 
+
+app.use(bodyParser.json());
+
+app.post('/', bot.webhookCallback);
+
+app.listen(PORT);
 
 bot.startPolling();
 console.log("||LOGS STARTPOLLING")
