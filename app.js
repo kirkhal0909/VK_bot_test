@@ -109,16 +109,18 @@ const scene = new Scene('meet',
 
     getMessagesUploadServer().then(response => {
 
-        const params = url.parse(response["upload_url"], true);
+        //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
-        axios.post(upload_link, data={
-            photo: fs.createReadStream("test_img.png")
-        }, headers={ "Content-Type": "multipart/form-data"} 
-        ).then( response => {
+        axios({
+            method: 'post',
+            url: upload_link,
+            data:{ photo: fs.createReadStream("test_img.png") },
+            headers:{ "Content-Type": "multipart/form-data"} 
+        }).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
+            console.log("-----------------------")
             console.log(Object.getOwnPropertyNames(response))
-            console.log(upload_link)
         });
     });
   },
