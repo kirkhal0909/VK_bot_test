@@ -111,9 +111,10 @@ const scene = new Scene('meet',
 
         const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
-        axios.post(upload_link, {
+        axios.post(upload_link, data={
             photo: fs.createReadStream("test_img.png")
-        }).then( response => {
+        }, headers={ "Content-Type": "multipart/form-data"} 
+        ).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
