@@ -116,6 +116,7 @@ const scene = new Scene('meet',
             console.log("BUFFER IMAGE")
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
+            console.log(response["upload_url"])
         });
     });
   },
