@@ -90,7 +90,8 @@ const scene = new Scene('meet',
     getUser(userId).then(response => {
         console.log(response)
         console.log(Object.getOwnPropertyNames(response))
-        ctx.reply('Привет, ${response["first_name"]}!');
+        const name = response["first_name"]
+        ctx.reply('Привет, ' + name + "!");
     });
   },
   (ctx) => {
