@@ -78,7 +78,7 @@ const scene = new Scene('meet',
     console.log("----------------------")
     console.log(Object.getOwnPropertyNames(ctx.client_info))
     const userId = ctx.message.from_id || ctx.message.user_id;
-    const response = bot.execute('users.get', {
+    const response = await bot.execute('users.get', {
         user_id: userId,
       });
     console.log("----------------------")
