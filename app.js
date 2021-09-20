@@ -132,8 +132,10 @@ const scene = new Scene('meet',
         const userId = ctx.message.from_id || ctx.message.user_id;
     
         getUser(userId).then(response => {
+            console.log(response)
+            console.log(Object.getOwnPropertyNames(response))
             photo_id = response.fields.photo_id
-            ctx.reply('What is your name?', photo_id);
+            ctx.reply('', photo_id);
         });
     }
   },
