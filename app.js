@@ -10,6 +10,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const url = require("url");
 const fs = require('fs');
+const restler = require('restler');
 
 const app = express();
 
@@ -112,11 +113,11 @@ const scene = new Scene('meet',
 
         //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
-        axios({
-            method: 'post',
-            url: upload_link,
-            data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') },
-        }).then( response => {
+        restler.post( upload_link, {
+            multipart: true,
+            data:{ 'photo': rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
+        }).on( "complete", response => {
+            console.log("-----------------------")
             console.log("BUFFER IMAGE")
             console.log(response)
             console.log("-----------------------")
