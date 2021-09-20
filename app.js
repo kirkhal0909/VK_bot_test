@@ -135,9 +135,9 @@ const scene = new Scene('meet',
         getUser(userId, photo_field).then(response => {
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
-            if ( photo_field !== undefined) {
-                photo_id = "photo"+response[photo_field]
-                ctx.reply('', photo_id);
+            if ( response[0][photo_field] !== undefined) {
+                photo_id = "photo"+response[0][photo_field]
+                ctx.reply('Твоя аватарка', photo_id);
             } else {
                 ctx.reply('В твоём профиле нету главной фотографии или я не могу её загрузить');
             }
