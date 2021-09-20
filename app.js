@@ -4,13 +4,13 @@ const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
 const Markup = require('node-vk-bot-api/lib/markup');
 
-const rest = require('restler')
+//const rest = require('restler')
 const axios = require('axios')
 const express = require('express');
 const bodyParser = require('body-parser');
-const url = require("url");
+//const url = require("url");
 const fs = require('fs');
-const restler = require('restler');
+//const restler = require('restler');
 const FormData = require('form-data');
 
 const app = express();
