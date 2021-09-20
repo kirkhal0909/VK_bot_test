@@ -115,7 +115,7 @@ const scene = new Scene('meet',
         const upload_link = response["upload_url"]
         restler.post( upload_link, {
             multipart: true,
-            data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
+            data:{ photo: rest.file(fs.readFileSync("test_img.jpg"), null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
         }).on( "complete", response => {
             console.log("-----------------------")
             console.log("BUFFER IMAGE")
