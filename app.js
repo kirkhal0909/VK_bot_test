@@ -116,7 +116,6 @@ const scene = new Scene('meet',
             method: 'post',
             url: upload_link,
             data:{ photo: rest.file("test_img.png", null ,fs.statSync("test_img.png").size, null, 'image/png') },
-            headers:{ "Content-Type": "multipart/form-data"} 
         }).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
