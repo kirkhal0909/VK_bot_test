@@ -76,6 +76,11 @@ async function getUser(userId){
     return response;
 }
 
+async function getMessagesUploadServer(){
+    let response = await bot.execute('photos.getMessagesUploadServer');
+    return response;
+}
+
 const MSG_SEND_IMG = 'Пришли картинку';
 
 const scene = new Scene('meet',
@@ -100,6 +105,13 @@ const scene = new Scene('meet',
             ]
           ]),
         );
+    });
+
+    getMessagesUploadServer().then(response => {
+        console.log('________________')
+        console.log('getMessageUploadServer')
+        console.log(response)
+        console.log(Object.getOwnPropertyNames(response))
     });
   },
   (ctx) => {
