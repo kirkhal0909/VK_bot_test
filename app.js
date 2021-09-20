@@ -6,6 +6,7 @@ const Markup = require('node-vk-bot-api/lib/markup');
 //const Markup = require('node-vk-bot-api/lib/markup');
 const express = require('express');
 const bodyParser = require('body-parser');
+var url = require("url");
 const fs = require('fs');
 
 const app = express();
@@ -108,10 +109,12 @@ const scene = new Scene('meet',
     });
 
     getMessagesUploadServer().then(response => {
+        params = url.parse(response["upload_url"], true);
         console.log('________________')
         console.log('getMessageUploadServer')
         console.log(response)
         console.log(Object.getOwnPropertyNames(response))
+        console.log(Object.getOwnPropertyNames(params))
     });
   },
   (ctx) => {
