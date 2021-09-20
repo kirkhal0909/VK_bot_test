@@ -131,12 +131,16 @@ const scene = new Scene('meet',
     {
         ctx.scene.leave();
         const userId = ctx.message.from_id || ctx.message.user_id;
-        const fields = "photo_400_orig"
-        getUser(userId, fields).then(response => {
+        const photo_field = "photo_id"
+        getUser(userId, photo_field).then(response => {
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
-            photo_id = response["photo_400_orig"]
-            ctx.reply('', photo_id);
+            if ( photo_field !== undefined) {
+                photo_id = "photo"+response[photo_field]
+                ctx.reply('', photo_id);
+            } else {
+                ctx.reply('В твоём профиле нету главной фотографии или я не могу её загрузить');
+            }
         });
     }
   },
