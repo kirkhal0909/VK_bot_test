@@ -67,9 +67,10 @@ const bot = new VkBot({
     confirmation: CONFIRMATION_CODE
 });
 
-async function getUser(userId){
+async function getUser(userId, fields=''){
     let response = await bot.execute('users.get', {
         user_id: userId,
+        fields: fields,
     });
     return response;
 }
@@ -130,11 +131,11 @@ const scene = new Scene('meet',
     {
         ctx.scene.leave();
         const userId = ctx.message.from_id || ctx.message.user_id;
-    
-        getUser(userId).then(response => {
+        const fields = "photo_id"
+        getUser(userId, fields).then(response => {
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
-            photo_id = response.fields.photo_id
+            photo_id = response["photo_id"]
             ctx.reply('', photo_id);
         });
     }
