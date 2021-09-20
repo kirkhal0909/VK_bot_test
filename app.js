@@ -126,7 +126,7 @@ const scene = new Scene('meet',
             },
             data: form
         };
-        axios(options, function(response) {
+        axios(options).then(function(response) {
             console.log("-----------------------")
             console.log("BUFFER IMAGE")
             console.log(response)
