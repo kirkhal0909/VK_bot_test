@@ -76,6 +76,8 @@ async function getUser(userId){
     return response;
 }
 
+const MSG_SEND_IMG = 'Пришли картинку';
+
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next();
@@ -94,18 +96,21 @@ const scene = new Scene('meet',
         ctx.reply('Привет, ' + name + "!", null, Markup
             .keyboard([
             [
-              Markup.button('Пришли картинку', 'primary'),
+              Markup.button(MSG_SEND_IMG, 'primary'),
             ]
           ]),
         );
     });
   },
   (ctx) => {
-    ctx.session.age = +ctx.message.text;
-    console.log("  ____SCENE 2");
-    console.log(ctx.message.text);
-    ctx.scene.next();
-    ctx.reply('What is your name?');
+    if (MSG_SEND_IMG)
+    {
+        ctx.session.age = +ctx.message.text;
+        console.log("  ____SCENE 2");
+        console.log(ctx.message.text);
+        ctx.scene.next();
+        ctx.reply('What is your name?', 'test_img.png');
+    }
   },
   (ctx) => {
     ctx.session.name = ctx.message.text;
