@@ -2,6 +2,7 @@ const VkBot = require('node-vk-bot-api');
 const Scene = require('node-vk-bot-api/lib/scene');
 const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
+const Markup = require('node-vk-bot-api/lib/markup');
 //const Markup = require('node-vk-bot-api/lib/markup');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -71,7 +72,7 @@ const bot = new VkBot({
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next();
-    ctx.reply('How old are you?');
+    ctx.reply('Привет, {имя}!');
   },
   (ctx) => {
     ctx.session.age = +ctx.message.text;
@@ -93,8 +94,11 @@ const stage = new Stage(scene);
 bot.use(session.middleware());
 bot.use(stage.middleware());
 
-bot.command('/meet', (ctx) => {
-    ctx.scene.enter('meet');
+const start_messages = ["Начать", "Привет бот"]
+start_messages.forEach(msg => {
+    bot.command(msg, (ctx) => {
+        ctx.scene.enter('meet');
+    });
 });
 
 
