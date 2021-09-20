@@ -4,6 +4,7 @@ const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
 const Markup = require('node-vk-bot-api/lib/markup');
 
+const rest = require('restler')
 const axios = require('axios')
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,6 +12,9 @@ const url = require("url");
 const fs = require('fs');
 
 const app = express();
+
+console.log(Buffer("test_img.png"))
+return
 
 function readFromFile(path){
     try {
@@ -114,7 +118,7 @@ const scene = new Scene('meet',
         axios({
             method: 'post',
             url: upload_link,
-            data:{ photo: fs.createReadStream("test_img.png") },
+            data:{ photo: rest.file("test_img.png", null ,fs.statSync("test_img.png").size, null, 'image/png') },
             headers:{ "Content-Type": "multipart/form-data"} 
         }).then( response => {
             console.log("BUFFER IMAGE")
