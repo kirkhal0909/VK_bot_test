@@ -2,7 +2,7 @@ const VkBot = require('node-vk-bot-api');
 const Scene = require('node-vk-bot-api/lib/scene');
 const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
-const Markup = require('node-vk-bot-api/lib/markup');
+const api = require('node-vk-bot-api/lib/api');
 //const Markup = require('node-vk-bot-api/lib/markup');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -72,6 +72,9 @@ const bot = new VkBot({
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next();
+    console.log(Object.getOwnPropertyNames(ctx))
+    console.log("----------------------")
+    console.log(Object.getOwnPropertyNames(ctx.message))
     ctx.reply('Привет, {имя}!');
   },
   (ctx) => {
