@@ -13,9 +13,6 @@ const fs = require('fs');
 
 const app = express();
 
-console.log(Buffer("test_img.png"))
-return
-
 function readFromFile(path){
     try {
         if (fs.existsSync(path)) {
