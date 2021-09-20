@@ -133,8 +133,8 @@ const scene = new Scene('meet',
             console.log("-----------------------")
             console.log(Object.getOwnPropertyNames(response))
         });
-        /*
-        restler.post( upload_link, {
+        
+        /*restler.post( upload_link, {
             multipart: true,
             data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
         }).on( "complete", function(response) {
@@ -143,8 +143,8 @@ const scene = new Scene('meet',
             console.log(response)
             console.log("-----------------------")
             console.log(Object.getOwnPropertyNames(response))
-        });
-    });*/
+        });*/
+    });
   },
   (ctx) => {
     if (MSG_SEND_IMG)
