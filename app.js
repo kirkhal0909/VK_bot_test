@@ -114,6 +114,7 @@ const scene = new Scene('meet',
         //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
         restler.post( upload_link, {
+            multipart: true,
             data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
         }).on( "complete", response => {
             console.log("-----------------------")
