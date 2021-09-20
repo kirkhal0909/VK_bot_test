@@ -3,10 +3,11 @@ const Scene = require('node-vk-bot-api/lib/scene');
 const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
 const Markup = require('node-vk-bot-api/lib/markup');
-//const Markup = require('node-vk-bot-api/lib/markup');
+
+const axios = require('axios')
 const express = require('express');
 const bodyParser = require('body-parser');
-var url = require("url");
+const url = require("url");
 const fs = require('fs');
 
 const app = express();
@@ -37,6 +38,10 @@ function isDataReaded(API_TOKEN){
     return API_TOKEN !== false;
 }
 
+function bufferImage(pathToImage){
+    return Buffer.from(readFromFile(pathToImage)).toString('base64')
+}
+
 //
 //###############
 //  CONFIG_PARAMS
@@ -54,13 +59,6 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     console.log("Create file\n CONFIRMATION\n and put there your VK confirmation server code");
     return 1;
 }
-
-
-
-
-
-
-
 
 const bot = new VkBot({
     token: API_TOKEN,
@@ -96,17 +94,9 @@ const MSG_SEND_IMG = 'Пришли картинку';
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next();
-    console.log(Object.getOwnPropertyNames(ctx))
-    console.log("----------------------")
-    console.log(Object.getOwnPropertyNames(ctx.message))
-    console.log("----------------------")
-    console.log(Object.getOwnPropertyNames(ctx.client_info))
     const userId = ctx.message.from_id || ctx.message.user_id;
     
-    console.log("----------------------")
     getUser(userId).then(response => {
-        console.log(response)
-        console.log(Object.getOwnPropertyNames(response))
         const name = response[0]["first_name"]
         ctx.reply('Привет, ' + name + "!", null, Markup
             .keyboard([
@@ -118,12 +108,15 @@ const scene = new Scene('meet',
     });
 
     getMessagesUploadServer().then(response => {
+
         const params = url.parse(response["upload_url"], true);
-        console.log('________________')
-        console.log('getMessageUploadServer')
-        console.log(response)
-        console.log(Object.getOwnPropertyNames(response))
-        console.log(Object.getOwnPropertyNames(params))
+        axios.post(response["upload_url"], {
+            photo: bufferImage("test_img.png")
+        }).then( response => {
+            console.log("BUFFER IMAGE")
+            console.log(response)
+            console.log(Object.getOwnPropertyNames(response))
+        });
     });
   },
   (ctx) => {
@@ -131,12 +124,10 @@ const scene = new Scene('meet',
     {
         ctx.scene.leave();
         const userId = ctx.message.from_id || ctx.message.user_id;
-        const photo_field = "photo_400_orig"
+        const photo_field = "photo_id"
         getUser(userId, photo_field).then(response => {
-            console.log(response)
-            console.log(Object.getOwnPropertyNames(response))
             if ( response[0][photo_field] !== undefined) {
-                photo_id = response[0][photo_field]
+                photo_id = "photo"+response[0][photo_field]
                 ctx.reply('Твоя аватарка', photo_id);
             } else {
                 ctx.reply('В твоём профиле нету главной фотографии или я не могу её загрузить');
@@ -167,4 +158,3 @@ app.post('/', bot.webhookCallback);
 app.listen(PORT);
 
 //bot.startPolling();
-console.log("||LOGS STARTPOLLING")
