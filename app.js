@@ -1,4 +1,7 @@
 const VkBot = require('node-vk-bot-api');
+const Scene = require('node-vk-bot-api/lib/scene');
+const Session = require('node-vk-bot-api/lib/session');
+const Stage = require('node-vk-bot-api/lib/stage');
 //const Markup = require('node-vk-bot-api/lib/markup');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -50,14 +53,49 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
     return 1;
 }
 
+
+
+
+
+
+
+
+
+
+
 const bot = new VkBot({
     token: API_TOKEN,
     confirmation: CONFIRMATION_CODE
 });
 
-bot.on((ctx) => {
-    ctx.reply('Hello, world!')
-  })
+const scene = new Scene('meet',
+  (ctx) => {
+    ctx.scene.next();
+    ctx.reply('How old are you?');
+  },
+  (ctx) => {
+    ctx.session.age = +ctx.message.text;
+
+    ctx.scene.next();
+    ctx.reply('What is your name?');
+  },
+  (ctx) => {
+    ctx.session.name = ctx.message.text;
+
+    ctx.scene.leave();
+    ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`);
+  },
+);
+
+const session = new Session();
+const stage = new Stage(scene);
+
+bot.use(session.middleware());
+bot.use(stage.middleware());
+
+bot.command('/meet', (ctx) => {
+    ctx.scene.enter('meet');
+});
 
 
 app.use(bodyParser.json());
