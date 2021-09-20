@@ -110,13 +110,14 @@ const scene = new Scene('meet',
     getMessagesUploadServer().then(response => {
 
         const params = url.parse(response["upload_url"], true);
-        axios.post(response["upload_url"], {
+        const upload_link = response["upload_url"]
+        axios.post(upload_link, {
             photo: bufferImage("test_img.png")
         }).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
-            console.log(response["upload_url"])
+            console.log(upload_link)
         });
     });
   },
