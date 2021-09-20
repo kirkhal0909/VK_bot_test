@@ -131,11 +131,11 @@ const scene = new Scene('meet',
     {
         ctx.scene.leave();
         const userId = ctx.message.from_id || ctx.message.user_id;
-        const fields = "photo_id"
+        const fields = "photo_400_orig"
         getUser(userId, fields).then(response => {
             console.log(response)
             console.log(Object.getOwnPropertyNames(response))
-            photo_id = response["photo_id"]
+            photo_id = response["photo_400_orig"]
             ctx.reply('', photo_id);
         });
     }
