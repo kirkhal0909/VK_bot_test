@@ -70,9 +70,10 @@ const bot = new VkBot({
 });
 
 async function getUser(userId){
-    return response = await bot.execute('users.get', {
+    let response = await bot.execute('users.get', {
         user_id: userId,
     });
+    return response;
 }
 
 const scene = new Scene('meet',
@@ -86,8 +87,11 @@ const scene = new Scene('meet',
     const userId = ctx.message.from_id || ctx.message.user_id;
     
     console.log("----------------------")
-    console.log(Object.getOwnPropertyNames(getUser(userId)))
-    ctx.reply('Привет, {имя}!');
+    getUser(userId).then(response => {
+        console.log(response)
+        console.log(Object.getOwnPropertyNames(response))
+        ctx.reply('Привет, {имя}!');
+    });
   },
   (ctx) => {
     ctx.session.age = +ctx.message.text;
