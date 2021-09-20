@@ -115,7 +115,7 @@ const scene = new Scene('meet',
         axios({
             method: 'post',
             url: upload_link,
-            data:{ photo: rest.file("test_img.png", null ,fs.statSync("test_img.png").size, null, 'image/png') },
+            data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') },
         }).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
