@@ -62,9 +62,6 @@ if (!isDataReaded(CONFIRMATION_CODE)) {
 
 
 
-
-
-
 const bot = new VkBot({
     token: API_TOKEN,
     confirmation: CONFIRMATION_CODE
@@ -77,8 +74,19 @@ async function getUser(userId){
     return response;
 }
 
-async function getMessagesUploadServer(){
-    let response = await bot.execute('photos.getMessagesUploadServer');
+async function getMessagesUploadServer(peerId){
+    let response = await bot.execute('photos.getMessagesUploadServer',{
+        peer_id: peerId,
+    });
+    return response;
+}
+
+async function saveMessagesPhoto(photo, server, hash){
+    let response = await bot.execute('photos.saveMessagesPhoto',{
+        photo: photo,
+        server: server,
+        hash: hash
+    });
     return response;
 }
 
@@ -109,7 +117,7 @@ const scene = new Scene('meet',
     });
 
     getMessagesUploadServer().then(response => {
-        params = url.parse(response["upload_url"], true);
+        const params = url.parse(response["upload_url"], true);
         console.log('________________')
         console.log('getMessageUploadServer')
         console.log(response)
@@ -124,7 +132,7 @@ const scene = new Scene('meet',
         console.log("  ____SCENE 2");
         console.log(ctx.message.text);
         ctx.scene.next();
-        ctx.reply('What is your name?', 'test_img.png');
+        ctx.reply('What is your name?', 'photo59837601_457263237');
     }
   },
   (ctx) => {
