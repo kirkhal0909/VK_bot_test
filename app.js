@@ -128,18 +128,14 @@ const scene = new Scene('meet',
   (ctx) => {
     if (MSG_SEND_IMG)
     {
-        ctx.session.age = +ctx.message.text;
-        console.log("  ____SCENE 2");
-        console.log(ctx.message.text);
-        ctx.scene.next();
-        ctx.reply('What is your name?', 'photo59837601_457263237');
+        ctx.scene.leave();
+        const userId = ctx.message.from_id || ctx.message.user_id;
+    
+        getUser(userId).then(response => {
+            photo_id = response.fields.photo_id
+            ctx.reply('What is your name?', photo_id);
+        });
     }
-  },
-  (ctx) => {
-    ctx.session.name = ctx.message.text;
-
-    ctx.scene.leave();
-    ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`);
   },
 );
 
