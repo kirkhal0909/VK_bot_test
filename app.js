@@ -112,7 +112,7 @@ const scene = new Scene('meet',
         const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
         axios.post(upload_link, {
-            photo: bufferImage("test_img.png")
+            photo: fs.createReadStream("test_img.png")
         }).then( response => {
             console.log("BUFFER IMAGE")
             console.log(response)
