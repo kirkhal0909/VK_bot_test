@@ -115,6 +115,7 @@ const scene = new Scene('meet',
         //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
         console.log(response["upload_url"])
+        console.log('sz '+fs.statSync("test_img.jpg").size)
         const form = new FormData();
         const file_buffer = fs.createReadStream("test_img.jpg")
         form.append("photo", file_buffer)
@@ -124,7 +125,8 @@ const scene = new Scene('meet',
             url: upload_link,
             headers: {
                 "Content-Type": "multipart/form-data",
-                "Content-Length" : fs.statSync("test_img.jpg").size
+                "Content-Length" : fs.statSync("test_img.jpg").size,
+                "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
             },
             data: form
         };
