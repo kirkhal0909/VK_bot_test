@@ -125,7 +125,7 @@ const scene = new Scene('meet',
             url: upload_link,
             headers: {
                 "Content-Type": "multipart/form-data",
-                "Content-Length" : fs.statSync("test_img.jpg").size,
+                //"Content-Length" : fs.statSync("test_img.jpg").size,
                 "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
             },
             data: form
