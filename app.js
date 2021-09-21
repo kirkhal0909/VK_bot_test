@@ -114,9 +114,11 @@ const scene = new Scene('meet',
 
         //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
+        console.log(response["upload_url"])
         const form = new FormData();
         const file_buffer = fs.createReadStream("test_img.jpg")
         form.append("photo", file_buffer)
+        form.append('access_token', API_TOKEN)
         const options = {
             method: "post",
             url: upload_link,
