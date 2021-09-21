@@ -139,7 +139,6 @@ const scene = new Scene('meet',
         });*/
         fs.stat("test_img.jpg", function(err, stats) {
             restler.post(upload_link, {
-                multipart: true,
                 data: {
                     "photo": restler.file("test_img.jpg", null, stats.size, null, "image/jpg")
                 },
