@@ -4,14 +4,10 @@ const Session = require('node-vk-bot-api/lib/session');
 const Stage = require('node-vk-bot-api/lib/stage');
 const Markup = require('node-vk-bot-api/lib/markup');
 
-//const rest = require('restler')
-const axios = require('axios')
 const express = require('express');
 const bodyParser = require('body-parser');
-//const url = require("url");
+const url = require("url");
 const fs = require('fs');
-const restler = require('restler');
-const FormData = require('form-data');
 
 const app = express();
 
@@ -112,58 +108,11 @@ const scene = new Scene('meet',
 
     getMessagesUploadServer().then(response => {
 
-        //const params = url.parse(response["upload_url"], true);
         const upload_link = response["upload_url"]
+        const parts = url.parse(response["upload_url"], true);
+        const data = parts["query"]
+        const pathUrl = parts["protocol"] + "//" + parts["host"] + parts["pathname"]
         console.log(response["upload_url"])
-        console.log('sz '+fs.statSync("test_img.jpg").size)
-        /*const form = new FormData();
-        const file_buffer = fs.createReadStream("test_img.jpg")
-        form.append("photo", file_buffer)
-        form.append('access_token', API_TOKEN)
-        const options = {
-            method: "post",
-            url: upload_link,
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "Content-Length" : fs.statSync("test_img.jpg").size,
-                "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
-            },
-            data: form
-        };
-        axios(options).then(function(response) {
-            console.log("-----------------------")
-            console.log("BUFFER IMAGE")
-            console.log(response)
-            console.log("-----------------------")
-            console.log(Object.getOwnPropertyNames(response))
-        });*/
-        fs.stat("test_img.jpg", function(err, stats) {
-            restler.post(upload_link, {
-                data: {
-                    "photo": restler.file("test_img.jpg", null, stats.size, null, "image/jpg")
-                },
-                headers : {
-                    "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
-                }
-            }).on("complete", function(data) {
-                console.log("-----------------------")
-                console.log("BUFFER IMAGE")
-                console.log(response)
-                console.log("-----------------------")
-                console.log(Object.getOwnPropertyNames(response))
-            });
-        });
-        
-        /*restler.post( upload_link, {
-            multipart: true,
-            data:{ photo: rest.file("test_img.jpg", null ,fs.statSync("test_img.jpg").size, null, 'image/jpg') }
-        }).on( "complete", function(response) {
-            console.log("-----------------------")
-            console.log("BUFFER IMAGE")
-            console.log(response)
-            console.log("-----------------------")
-            console.log(Object.getOwnPropertyNames(response))
-        });*/
     });
   },
   (ctx) => {
